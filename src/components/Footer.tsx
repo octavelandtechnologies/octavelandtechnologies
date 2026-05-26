@@ -19,7 +19,7 @@ export default function Footer() {
     { name: "Pricing", href: "/#pricing" },
     { name: "About", href: "/#about" },
     { name: "Contact", href: "/#contact" },
-    { name: "University", href: "/gehgehuniversity" },
+    { name: "University", href: "/university" },
   ];
 
   const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
