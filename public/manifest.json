@@ -1,0 +1,16 @@
+{
+  "name": "OctaveLand Technologies",
+  "short_name": "OctaveLand",
+  "description": "Premium Websites & Mobile Apps",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "500x500",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff"
+}
