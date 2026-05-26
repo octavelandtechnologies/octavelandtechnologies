@@ -1,7 +1,11 @@
 import { MouseEvent } from "react";
-import { Terminal, ArrowUp } from "lucide-react";
+import { ArrowUp } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -10,21 +14,30 @@ export default function Footer() {
   };
 
   const navLinks = [
-    { name: "Services", href: "#services" },
-    { name: "Portfolio", href: "#portfolio" },
-    { name: "Pricing", href: "#pricing" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    { name: "Services", href: "/#services" },
+    { name: "Portfolio", href: "/#portfolio" },
+    { name: "Pricing", href: "/#pricing" },
+    { name: "About", href: "/#about" },
+    { name: "Contact", href: "/#contact" },
+    { name: "University", href: "/gehgehuniversity" },
   ];
 
   const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetElement = document.querySelector(href);
-    if (targetElement) {
-      window.scrollTo({
-        top: (targetElement as HTMLElement).offsetTop - 80,
-        behavior: "smooth",
-      });
+    if (href.startsWith("/#")) {
+      e.preventDefault();
+      const targetId = href.substring(2);
+      
+      if (location.pathname === "/") {
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: "smooth",
+          });
+        }
+      } else {
+        navigate("/", { state: { targetId } });
+      }
     }
   };
 
@@ -37,14 +50,14 @@ export default function Footer() {
           
           {/* Logo & Info */}
           <div className="text-left space-y-3">
-            <div className="flex items-center gap-2.5">
+            <Link to="/" className="flex items-center gap-2.5 group">
               <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
                 <img src="/logo.png" alt="OctaveLand Logo" className="w-full h-full object-cover" />
               </div>
-              <span className="font-bold text-lg text-white tracking-tight">
+              <span className="font-bold text-lg text-white tracking-tight group-hover:text-brand-blue transition-colors">
                 OctaveLand Technologies
               </span>
-            </div>
+            </Link>
             <p className="text-sm max-w-sm">
               We engineer beautiful web and responsive mobile application interfaces. Handcoded from design mockups to robust production architectures.
             </p>
@@ -53,14 +66,14 @@ export default function Footer() {
           {/* Quick links list */}
           <div className="flex flex-wrap gap-x-8 gap-y-4">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
-                onClick={(e) => handleLinkClick(e, link.href)}
+                to={link.href}
+                onClick={(e) => handleLinkClick(e as any, link.href)}
                 className="text-sm hover:text-white transition-colors"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
